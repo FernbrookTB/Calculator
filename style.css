@@ -10,24 +10,68 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url(top-view-wooden-desk-with-notebooks-copy-space.jpg);
+    background-size: cover;
+    background-position: right;
 
 }
 
 #mainContainer {
+    content: "";
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction:column;
     height: 65%;
-    border: 1px solid black;
+    border: none;
     box-shadow: 0px 0px 5px;
     width: 500px;
     border-radius: 40px;
-    background: #91EAF0;
+    background: rgb(145, 234, 240, .0);
     filter: brightness(1.1);
 
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    box-shadow:    inset 0px 4px 5px rgba(255,255,255, 1),
+                    inset 0px -4px 5px rgba(0,0,0, 6),
+                    0px 10px 30px rgba(0,0,0, 0.25);
+                
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    
+}
+
+#mainContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, .2),
+        rgba(255, 255, 255, 0)
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+#mainContainer::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, .15),
+        transparent
+    );
+    z-index: 2;
+    pointer-events: none;
 }
 
 #screenContainer {
@@ -38,12 +82,17 @@ body {
     margin-top: 25px;
     height: 150px;
     width: 450px;
-    border: 10px solid  #91EAF0;
-    box-shadow:  1px 1px 1px 1px;
+    border: 1px rgba(106, 181, 190, 0.274);
+    box-shadow:    inset 0px 4px 5px rgba(255,255,255, .3),
+                    inset 0px -4px 5px rgba(0,0,0, .2),
+                    0px 10px 40px rgba(0,0,0, 0.25);
+                 
+    
     border-radius: 30px;
     font-size: 72px;
     padding: 0 20px;
-    background: rgb(135, 153, 172);
+    background: rgb(135, 153, 172, .05);
+    z-index: 3;
     
 }
 
@@ -52,7 +101,7 @@ body {
     height: 450px;
     width: 450px;
     flex-wrap: wrap;
-    border: 1px solid black;
+    border: 1px rgba(106, 181, 190, 0.274);
     gap: 12px;
     justify-content: center;
     align-items: center;
@@ -60,45 +109,93 @@ body {
     border-radius: 40px;
     padding-top: 12px;
     padding-bottom: 12px;
-    box-shadow: inset  0px 4px 5px,
-                inset  0px -4px 5px;
-    background: #82E3F0;
-    
+    box-shadow: inset  0px 6px 10px rgba(0,0,0, .4) ,
+                inset  0px -6px 10px rgba(255,255,255, .2),
+                0px 10px 40px rgba(0,0,0, .25);
+                
+                
+    background: rgb(130, 227, 240, .05);
+    z-index: 3;
 }
 
 button {
+    content: "";
+    position: relative;
     height: 75px;
     width: 75px;
     border-radius: 60%;
     font-size: 25px;
     box-shadow: 0px 2px 4px,
               inset 0px -2px 4px;
-    filter: brightness(1.4);
+    filter: brightness(2);
+    border: none;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+overflow: hidden;
+z-index: 1;
+
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
     
+    background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(255, 255, 255, .4),
+        rgba(255, 255, 255, 0),
+        transparent
+    );
+    
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    width: 100%;
+    height: 50%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, .1 ),
+        transparent
+    );
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
 }
 
 #one, #two, #three, #subtract {
-    background: #91EAF0;
+    background: rgb(145, 234, 240, .1);
     filter: brightness(1.2);
 }
 
 #mrc, #mMinus, #mPlus, #squareRoot, #percent {
-    background: #34949B;
+    background: rgb(52, 148, 155, .1);
 } 
 
 #arrow, #seven, #eight, #nine, #divide {
-    background: #B0622C;
+    background: rgb(176, 98, 44, .1);
 }
 
 #ce, #ac {
-    background: #F06100;
+    background: rgb(240, 97, 0, .1);
     filter: brightness(1);
 }
 
 #four, #five, #six, #multiply {
-    background: #2E4446;
+    background: rgb(46, 68, 70, .1);
 }
 
 #zero, #doubleZero, #decimal, #equal, #addition {
-    background: #704F38;
+    background: rgb(112, 79, 56, .1);
 }
