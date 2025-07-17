@@ -33,8 +33,15 @@ numbers.forEach(button => {
 
 function handleFunction(value) {
     if (value === 'CE') {
-        currentEntry = '';
-        updateScreen(firstOperand !== null ? firstOperand + operator : '0');
+        if (currentEntry !== '') {
+            currentEntry = '';
+        } else if (operator !== ''){
+            operator = '';
+        } else {
+            firstOperand = '';
+        }
+        
+        updateScreen(firstOperand !== null ? firstOperand + operator || '' : '0');
     }
 
     if (value === 'AC') {
