@@ -16,6 +16,9 @@ function updateScreen(value) {
 
 function clickHandler(e) {
         const value = e.target.dataset.value;
+
+        if (value === '.' && currentEntry.includes('.')) return;
+        
         currentEntry += value;
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
 }
