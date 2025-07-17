@@ -58,6 +58,17 @@ functions.forEach(button => {
 
 
 function handleOperator(value) {
+    if(value === '=') {
+    if (firstOperand !== null && currentEntry !== '') {
+        const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
+        updateScreen(result);
+        firstOperand = result;
+        currentEntry = '';
+        operator = null;
+    }
+    return;
+}
+
     if (firstOperand !== null && currentEntry !== '') {
         const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
         firstOperand = result;
@@ -75,8 +86,18 @@ function handleOperator(value) {
         operator = value;
         updateScreen(`${firstOperand}${operator}`);
     }
-
+    (value === '=') 
+    if (firstOperand !== null && currentEntry !== '') {
+        const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
+        updateScreen(result);
+        firstOperand = result;
+        currentEntry = '';
+        operator = null;
+    }
+    return;
 }
+
+
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
@@ -102,3 +123,5 @@ function compute(a, operator, b) {
             return 'Error';
     }
 }
+
+
