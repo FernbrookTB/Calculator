@@ -18,7 +18,7 @@ function clickHandler(e) {
         const value = e.target.dataset.value;
 
         if (value === '.' && currentEntry.includes('.')) return;
-        
+
         currentEntry += value;
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
 }
@@ -48,6 +48,14 @@ function handleFunction(value) {
         currentEntry = currentEntry.slice(0, -1);
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry || '0');
     }
+
+       if(value === 'sqrt') {
+        if (currentEntry !== '') {
+            const result = Math.sqrt(parseFloat(currentEntry));
+            currentEntry = parseFloat(result.toFixed(10)).toString();
+            updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
+        }
+    }
 }
 
 
@@ -71,6 +79,7 @@ function handleOperator(value) {
     }
     return;
 }
+    
 
     if (firstOperand !== null && currentEntry !== '') {
         const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
@@ -89,15 +98,7 @@ function handleOperator(value) {
         operator = value;
         updateScreen(`${firstOperand}${operator}`);
     }
-    (value === '=') 
-    if (firstOperand !== null && currentEntry !== '') {
-        const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
-        updateScreen(result);
-        firstOperand = result;
-        currentEntry = '';
-        operator = null;
-    }
-    return;
+  
 }
 
 
@@ -125,6 +126,7 @@ function compute(a, operator, b) {
         default:
             return 'Error';
     }
+
 }
 
 
