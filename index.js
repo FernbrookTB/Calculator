@@ -39,7 +39,8 @@ function handleFunction(value) {
     }
 
     if (value === 'backspace') {
-        
+        currentEntry = currentEntry.slice(0, -1);
+        updateScreen(inputArray.join('') + currentEntry || '0');
     }
 }
 
