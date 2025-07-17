@@ -1,9 +1,11 @@
 const numbers = document.querySelectorAll('button.number')
 const functions = document.querySelectorAll('button.function')
-const operator = document.querySelectorAll('button.operator')
+const operatorButtons = document.querySelectorAll('button.operator')
 const screen = document.getElementById('screenContainer')
-let inputArray = [];
+
 let currentEntry = '';
+let firstOperand = null;
+let operator = null;
 
 
 function updateScreen(value) {
@@ -15,7 +17,7 @@ function updateScreen(value) {
 function clickHandler(e) {
         const value = e.target.dataset.value;
         currentEntry += value;
-        updateScreen(inputArray.join('') + currentEntry);
+        updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
 }
 
 
@@ -29,18 +31,19 @@ numbers.forEach(button => {
 function handleFunction(value) {
     if (value === 'CE') {
         currentEntry = '';
-        updateScreen(inputArray.join('') || '0');
+        updateScreen(firstOperand !== null ? firstOperand + operator : '0');
     }
 
     if (value === 'AC') {
-        inputArray = []
+        firstOperand = null;
         currentEntry = '';
+        operator = null;
         updateScreen('0');
     }
 
     if (value === 'backspace') {
         currentEntry = currentEntry.slice(0, -1);
-        updateScreen(inputArray.join('') + currentEntry || '0');
+        updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry || '0');
     }
 }
 
@@ -52,3 +55,50 @@ functions.forEach(button => {
     });
 });
 
+
+
+function handleOperator(value) {
+    if (firstOperand !== null && currentEntry !== '') {
+        const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
+        firstOperand = result;
+        operator = value;
+        currentEntry= '';
+        updateScreen(`${firstOperand}${operator}`);
+    
+    } else if (firstOperand === null && currentEntry !== '') {
+        firstOperand = currentEntry;
+        operator = value;
+        currentEntry = '';
+        updateScreen(`${firstOperand}${operator}`);
+    
+    } else if (firstOperand !== null && currentEntry === ''){
+        operator = value;
+        updateScreen(`${firstOperand}${operator}`);
+    }
+
+}
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const value = e.target.dataset.value;
+        handleOperator(value);
+    });
+});
+
+
+function compute(a, operator, b) {
+    switch (operator) {
+        case '+':
+            return a + b;
+        case '-':
+            return a - b;
+        case '*':
+        case 'x':
+            return a * b;
+        case '/':
+        case '÷':
+            return b === 0 ? 'Error' : a / b;
+        default:
+            return 'Error';
+    }
+}
