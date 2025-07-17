@@ -3,37 +3,47 @@ const functions = document.querySelectorAll('button.function')
 const operator = document.querySelectorAll('button.operator')
 const screen = document.getElementById('screenContainer')
 let inputArray = [];
+let currentEntry = '';
+
 
 function updateScreen(value) {
-    if (screen.textContent === "0") {
-       screen.textContent = value
-    } else {
-        screen.textContent += value;
-    }
+   screen.textContent = value || '0';
 }
+
+
 
 function clickHandler(e) {
         const value = e.target.dataset.value;
-        inputArray.push(value);
-        updateScreen(value);
+        currentEntry += value;
+        updateScreen(inputArray.join('') + currentEntry);
 }
+
+
 
 numbers.forEach(button => {
     button.addEventListener('click', clickHandler);
 });
 
+
+
 function handleFunction(value) {
     if (value === 'CE') {
-        if (inputArray.length === 0) return; 
-        inputArray.pop();
-        screen.textContent = inputArray.length ? inputArray.join('') : '0';
+        currentEntry = '';
+        updateScreen(inputArray.join('') || '0');
     }
 
     if (value === 'AC') {
-        inputArray = [];
-        screen.textContent = '0';
+        inputArray = []
+        currentEntry = '';
+        updateScreen('0');
+    }
+
+    if (value === 'backspace') {
+        
     }
 }
+
+
 
 functions.forEach(button => {
     button.addEventListener('click', (e) => {
