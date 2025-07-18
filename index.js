@@ -67,6 +67,11 @@ function clickHandler(e) {
 
         if (value === '.' && currentEntry.includes('.')) return;
 
+        const fullExpression =
+            (firstOperand !== null ? firstOperand + (operator || '') : '') + currentEntry;
+
+        if (fullExpression.length > 10) return;
+
         currentEntry += value;
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
 }
