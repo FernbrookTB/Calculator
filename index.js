@@ -6,6 +6,8 @@ const screen = document.getElementById('screenContainer')
 let currentEntry = '';
 let firstOperand = null;
 let operator = null;
+let memory = 0;
+let mrcPressedOnce = false;
 
 
 function updateScreen(value) {
@@ -56,12 +58,34 @@ function handleFunction(value) {
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry || '0');
     }
 
-       if(value === 'sqrt') {
+    if(value === 'sqrt') {
         if (currentEntry !== '') {
             const result = Math.sqrt(parseFloat(currentEntry));
             currentEntry = parseFloat(result.toFixed(10)).toString();
             updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
         }
+    }
+
+    if (value === 'M+') {
+        memory += parseFloat(currentEntry || firstOperand || '0');
+    }
+
+    if (value === 'M-') {
+        memory -= parseFloat(currentEntry || firstOperand || '0');
+
+    }
+
+    if (value === 'MRC') {
+        if (!mrcPressedOnce) {
+            updateScreen(memory.toString());
+            currentEntry = memory.toString();
+            mrcPressedOnce = true;
+        } else {
+            memory = 0;
+            mrcPressedOnce = false;
+        }
+    } else {
+        mrcPressed = false;
     }
 }
 
