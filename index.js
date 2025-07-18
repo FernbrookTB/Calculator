@@ -2,12 +2,57 @@ const numbers = document.querySelectorAll('button.number')
 const functions = document.querySelectorAll('button.function')
 const operatorButtons = document.querySelectorAll('button.operator')
 const screen = document.getElementById('screenContainer')
+const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','+', '-', '*', '/', 'x', '÷', '=', 'Enter', 'Backspace', 'c', 'C', '%', 'r', 'R'];
+document.addEventListener('keydown', handleKeyboardInput);
 
 let currentEntry = '';
 let firstOperand = null;
 let operator = null;
 let memory = 0;
 let mrcPressedOnce = false;
+
+
+function handleKeyboardInput(e) {
+    const key = e.key;
+
+    if (!allowedKeys.includes(key)) return;
+
+    if (!isNaN(key) || key === '.') {
+        if (key === '.' && currentEntry.includes('.')) return;
+        currentEntry += key;
+        updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry); return; 
+    }
+
+    if (['+', '-', '*', '/', 'x', '÷'].includes(key)) {
+        handleOperator(key === '*' ? 'x' : key === '/' ? '÷' : key);
+        return;
+    }
+
+    if (key === '=' || key === 'Enter') {
+        handleOperator('=');
+        return;
+    }
+
+    if (key.toLowerCase() === 'c') {
+        handleFunction('AC');
+        return;
+    }
+
+    if (key === 'Backspace') {
+        handleFunction('backspace');
+        return;
+    }
+
+    if (key === '%') {
+        handleFunction('%');
+        return;
+    }
+
+    if (key.toLowerCase() === 'r') {
+        handleFunction('sqrt');
+        return;
+    }
+}
 
 
 
