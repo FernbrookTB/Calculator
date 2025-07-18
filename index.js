@@ -199,18 +199,28 @@ operatorButtons.forEach(button => {
 function compute(a, operator, b) {
     switch (operator) {
         case '+':
-            return a + b;
+            result = a + b;
+            break;
         case '-':
-            return a - b;
+            result = a - b;
+            break;
         case '*':
         case 'x':
-            return a * b;
+            result = a * b;
+            break;
         case '/':
         case '÷':
-            return b === 0 ? 'Error' : a / b;
+            if (b === 0) return 'Error'; 
+            result = a / b;
+            break;
         default:
             return 'Error';
     }
+
+    if (!Number.isInteger(result)) {
+        result = parseFloat(result.toPrecision(10));
+    }
+    return result;
 
 }
 

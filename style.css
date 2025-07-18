@@ -218,6 +218,10 @@ button:hover {
     animation: lightSweep 1.5s ease-in-out;
 }
 
+button:focus {
+    outline:none;
+}
+
 #one, #two, #three, #subtract {
     background: rgb(145, 234, 240, .1);
     filter: brightness(1.2);
