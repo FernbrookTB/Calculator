@@ -10,6 +10,7 @@ let memory = 0;
 let mrcPressedOnce = false;
 
 
+
 function updateScreen(value) {
    screen.textContent = value || '0';
 }
@@ -86,6 +87,14 @@ function handleFunction(value) {
         }
     } else {
         mrcPressed = false;
+    }
+
+    if (value === '%') {
+        if (currentEntry !== '') {
+            const result = parseFloat(currentEntry) / 100;
+            currentEntry = result.toString();
+            updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
+        }
     }
 }
 

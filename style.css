@@ -78,6 +78,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    flex-direction: column;
     margin-bottom: 20px;
     margin-top: 25px;
     height: 150px;
@@ -95,6 +96,7 @@ body {
     z-index: 3;
     overflow: hidden;
 }
+
 
 #buttonContainer {
     display: flex;
