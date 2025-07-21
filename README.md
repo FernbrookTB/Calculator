@@ -46,5 +46,5 @@ A functional, responsive calculator built using HTML, CSS, and JavaScript. It fe
 
 ## Live Demo
 
-[Click here to try it out](https://yourusername.github.io/your-repo-name)
+[Click here to try it out](https://fernbrooktb.github.io/Calculator/)
 
