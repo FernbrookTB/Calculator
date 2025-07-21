@@ -81,8 +81,9 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     margin-top: 25px;
-    height: 150px;
-    width: 450px;
+    height: 25%;
+    width: 90vw;
+    max-width: 450px;
     border: 1px rgba(106, 181, 190, 0.274);
     box-shadow:    inset 0px 4px 5px rgba(255,255,255, .3),
                     inset 0px -4px 5px rgba(0,0,0, .2),
