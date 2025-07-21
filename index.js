@@ -10,6 +10,7 @@ let firstOperand = null;
 let operator = null;
 let memory = 0;
 let mrcPressedOnce = false;
+let lastResult = null;
 
 
 function handleKeyboardInput(e) {
@@ -66,11 +67,7 @@ function clickHandler(e) {
         const value = e.target.dataset.value;
 
         if (value === '.' && currentEntry.includes('.')) return;
-
-        const fullExpression =
-            (firstOperand !== null ? firstOperand + (operator || '') : '') + currentEntry;
-
-        if (fullExpression.length > 10) return;
+        if (currentEntry.length >= 10) return;
 
         currentEntry += value;
         updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
@@ -110,9 +107,19 @@ function handleFunction(value) {
     }
 
     if(value === 'sqrt') {
+        let target = null;
+
         if (currentEntry !== '') {
-            const result = Math.sqrt(parseFloat(currentEntry));
-            currentEntry = parseFloat(result.toFixed(10)).toString();
+            target = parseFloat(currentEntry);
+        } else if (lastResult != null){
+            target = parseFloat(lastResult);
+        }
+
+        if (target != null) {
+            const result = Math.sqrt(target);
+            currentEntry = parseFloat(result.toFixed(8)).toString();
+            firstOperand = null;
+            operator = null;
             updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
         }
     }
@@ -140,9 +147,18 @@ function handleFunction(value) {
     }
 
     if (value === '%') {
-        if (currentEntry !== '') {
-            const result = parseFloat(currentEntry) / 100;
+       let target = null;
+       if (currentEntry !== '') {
+            target = parseFloat(currentEntry);
+       } else if (lastResult !== null) {
+            target = parseFloat(lastResult);
+       }
+
+        if (target !== null) {
+            const result = target / 100;
             currentEntry = result.toString();
+            firstOperand = null;
+            operator = null;
             updateScreen(firstOperand !== null ? firstOperand + operator + currentEntry : currentEntry);
         }
     }
@@ -164,6 +180,7 @@ function handleOperator(value) {
         const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
         updateScreen(result);
         firstOperand = result;
+        lastResult = result;
         currentEntry = '';
         operator = null;
     }
@@ -223,7 +240,7 @@ function compute(a, operator, b) {
     }
 
     if (!Number.isInteger(result)) {
-        result = parseFloat(result.toPrecision(10));
+        result = parseFloat(result.toPrecision(8));
     }
     return result;
 
