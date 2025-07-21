@@ -26,11 +26,23 @@ function handleKeyboardInput(e) {
 
     if (['+', '-', '*', '/', 'x', '÷'].includes(key)) {
         handleOperator(key === '*' ? 'x' : key === '/' ? '÷' : key);
+        if (currentEntry !== '') {
+            firstOperand = currentEntry;
+            currentEntry = '';
+        }
+        updateScreen(`${firstOperand}${operator}`);
         return;
     }
 
     if (key === '=' || key === 'Enter') {
-        handleOperator('=');
+        if (firstOperand !== null && currentEntry !== '' && operator !== null){
+            const result = compute(parseFloat(firstOperand), operator, parseFloat(currentEntry));
+            updateScreen(result);
+            lastResult = result;
+            firstOperand = result;
+            currentEntry = '';
+            operator = null;
+        }
         return;
     }
 
